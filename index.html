@@ -383,16 +383,20 @@
                 <stop offset="1" stop-color="rgb(255,0,0)" />
             </linearGradient>
         </defs>
-        <rect x="10" y="0" width="360" height="67" fill="rgb(0,255,0)" id="mainViewer" />
+
         <rect x="0" y="0" width="10" height="100" fill="url(#saturationGradient)"
-            onclick="ChangeSaturation(evt)" />
+            onclick="ChangeSaturation(evt)" id="saturationSlider" />
         <circle cx="5" cy="100" r="2.5" fill="none" stroke="green" id="saturationSelector" />
+
         <rect x="370" y="0" width="10" height="100" fill="url(#luminanceGradient)"
-            onclick="ChangeLuminance(evt)" />
+            onclick="ChangeLuminance(evt)" id="luminanceSlider" />
         <circle cx="375" cy="50" r="2.5" fill="none" stroke="green" id="luminanceSelector" />
+
         <rect x="10" y="67" width="360" height="33" fill="url(#hueGradient)"
-            onclick="ChangeHue(evt)" />
+            onclick="ChangeHue(evt)" id="hueSlider" />
         <circle cx="130" cy="84" r="2.5" fill="none" stroke="black" id="hueSelector" />
+
+        <rect x="10" y="0" width="360" height="67" fill="rgb(0,255,0)" id="mainViewer" />
         <text x="10" y="8" class="label" id="rgbLabel">rgb(0,255,0)</text>
         <text x="10" y="16" class="label" id="hslLabel">120 100% 50%</text>
         <a href="http://www.endycahyono.com/article/my-attempt-at-creating-a-better-color-picker">
@@ -424,9 +428,20 @@
 
         let svgCanvas = document.getElementById("cp");
         let svgPoint = svgCanvas.createSVGPoint();
+
+        let luminanceSlider = document.getElementById("luminanceSlider");
+        let luminanceSliderHeight = luminanceSlider.getBBox().height;
         let luminanceSelector = document.getElementById("luminanceSelector");
+
+        let saturationSlider = document.getElementById("saturationSlider");
+        let saturationSliderHeight = saturationSlider.getBBox().height;
         let saturationSelector = document.getElementById("saturationSelector");
+
+        let hueSlider = document.getElementById("hueSlider");
+        let hueSliderX = hueSlider.getBBox().x;
+        let hueSliderWidth = hueSlider.getBBox().width;
         let hueSelector = document.getElementById("hueSelector");
+
         let mainViewer = document.getElementById("mainViewer");
         let rgbLabel = document.getElementById("rgbLabel");
         let hslLabel = document.getElementById("hslLabel");
@@ -435,7 +450,7 @@
 
         function ChangeLuminance(clickEvent) {
             let coord = getSvgCoord(clickEvent);
-            let newLuminance = coord.y / 100;
+            let newLuminance = coord.y / luminanceSliderHeight;
             currentHsl[2] = newLuminance;
             let currentRgb = hslToRgb(...currentHsl);
 
@@ -449,7 +464,7 @@
 
         function ChangeSaturation(clickEvent) {
             let coord = getSvgCoord(clickEvent);
-            let newSaturation = coord.y / 100;
+            let newSaturation = coord.y / saturationSliderHeight;
             currentHsl[1] = newSaturation;
             let currentRgb = hslToRgb(...currentHsl);
 
@@ -463,7 +478,7 @@
 
         function ChangeHue(clickEvent) {
             let coord = getSvgCoord(clickEvent);
-            let newHue = (coord.x - 10) / 360;
+            let newHue = (coord.x - hueSliderX) / hueSliderWidth;
             currentHsl[0] = newHue;
             let currentRgb = hslToRgb(...currentHsl);
 
