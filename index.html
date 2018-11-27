@@ -11,13 +11,14 @@
 <body>
     <svg id="cp" viewBox="0 0 1700 1000" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
-            <linearGradient id="luminanceGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="black" />
-                <stop offset="100%" stop-color="white" />
-            </linearGradient>
             <linearGradient id="saturationGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="gray" />
-                <stop offset="100%" stop-color="red" />
+                <stop offset="0%" stop-color="gray" id="saturationFromColor" />
+                <stop offset="100%" stop-color="red" id="saturationToColor" />
+            </linearGradient>
+            <linearGradient id="luminanceGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="black" id="luminanceLowColor" />
+                <stop offset="50%" stop-color="gray" id="luminanceMidColor" />
+                <stop offset="100%" stop-color="white" id="luminanceHighColor" />
             </linearGradient>
             <linearGradient id="hueGradient">
                 <stop offset="0" stop-color="rgb(255,0,0)" />
@@ -432,10 +433,15 @@
         let saturationSlider = document.getElementById("saturationSlider");
         let saturationSliderHeight = saturationSlider.getBBox().height;
         let saturationSelector = document.getElementById("saturationSelector");
+        let saturationFromColor = document.getElementById("saturationFromColor");
+        let saturationToColor = document.getElementById("saturationToColor");
 
         let luminanceSlider = document.getElementById("luminanceSlider");
         let luminanceSliderHeight = luminanceSlider.getBBox().height;
         let luminanceSelector = document.getElementById("luminanceSelector");
+        let luminanceLowColor = document.getElementById("luminanceLowColor");
+        let luminanceMidColor = document.getElementById("luminanceMidColor");
+        let luminanceHighColor = document.getElementById("luminanceHighColor");
 
         let hueSlider = document.getElementById("hueSlider");
         let hueSliderX = hueSlider.getBBox().x;
@@ -486,7 +492,14 @@
             let hueSelCx = hslVal[0] * hueSliderWidth + hueSliderX;
 
             saturationSelector.setAttribute("cy", satSelCy);
+            saturationFromColor.setAttribute("stop-color", getRgbString(hslToRgb(hslVal[0], 0, 0.5)));
+            saturationToColor.setAttribute("stop-color", getRgbString(hslToRgb(hslVal[0], 1, 0.5)));
+
             luminanceSelector.setAttribute("cy", lumSelCy);
+            luminanceLowColor.setAttribute("stop-color", getRgbString(hslToRgb(hslVal[0], 1, 0)));
+            luminanceMidColor.setAttribute("stop-color", getRgbString(hslToRgb(hslVal[0], 1, 0.5)));
+            luminanceHighColor.setAttribute("stop-color", getRgbString(hslToRgb(hslVal[0], 1, 1)));
+
             hueSelector.setAttribute("cx", hueSelCx);
 
             mainViewer.setAttribute("fill", rgbStr);
