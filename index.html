@@ -429,13 +429,13 @@
         let svgCanvas = document.getElementById("cp");
         let svgPoint = svgCanvas.createSVGPoint();
 
-        let luminanceSlider = document.getElementById("luminanceSlider");
-        let luminanceSliderHeight = luminanceSlider.getBBox().height;
-        let luminanceSelector = document.getElementById("luminanceSelector");
-
         let saturationSlider = document.getElementById("saturationSlider");
         let saturationSliderHeight = saturationSlider.getBBox().height;
         let saturationSelector = document.getElementById("saturationSelector");
+
+        let luminanceSlider = document.getElementById("luminanceSlider");
+        let luminanceSliderHeight = luminanceSlider.getBBox().height;
+        let luminanceSelector = document.getElementById("luminanceSelector");
 
         let hueSlider = document.getElementById("hueSlider");
         let hueSliderX = hueSlider.getBBox().x;
@@ -448,45 +448,49 @@
 
         let currentHsl = [0.36, 1.0, 0.5];
 
-        function ChangeLuminance(clickEvent) {
-            let coord = getSvgCoord(clickEvent);
-            let newLuminance = coord.y / luminanceSliderHeight;
-            currentHsl[2] = newLuminance;
-            let currentRgb = hslToRgb(...currentHsl);
-
-            let rgbStr = getRgbString(currentRgb);
-            luminanceSelector.setAttribute("cy", coord.y);
-            mainViewer.setAttribute("fill", rgbStr);
-            rgbLabel.textContent = rgbStr;
-            let hslStr = getHslString(currentHsl);
-            hslLabel.textContent = hslStr;
-        }
+        updateMainViewer(currentHsl);
 
         function ChangeSaturation(clickEvent) {
             let coord = getSvgCoord(clickEvent);
             let newSaturation = coord.y / saturationSliderHeight;
-            currentHsl[1] = newSaturation;
-            let currentRgb = hslToRgb(...currentHsl);
 
-            let rgbStr = getRgbString(currentRgb);
-            saturationSelector.setAttribute("cy", coord.y);
-            mainViewer.setAttribute("fill", rgbStr);
-            rgbLabel.textContent = rgbStr;
-            let hslStr = getHslString(currentHsl);
-            hslLabel.textContent = hslStr;
+            currentHsl[1] = newSaturation;
+
+            updateMainViewer(currentHsl);
+        }
+
+        function ChangeLuminance(clickEvent) {
+            let coord = getSvgCoord(clickEvent);
+            let newLuminance = coord.y / luminanceSliderHeight;
+
+            currentHsl[2] = newLuminance;
+
+            updateMainViewer(currentHsl);
         }
 
         function ChangeHue(clickEvent) {
             let coord = getSvgCoord(clickEvent);
             let newHue = (coord.x - hueSliderX) / hueSliderWidth;
-            currentHsl[0] = newHue;
-            let currentRgb = hslToRgb(...currentHsl);
 
+            currentHsl[0] = newHue;
+
+            updateMainViewer(currentHsl);
+        }
+
+        function updateMainViewer(hslVal) {
+            let currentRgb = hslToRgb(...hslVal);
+            let hslStr = getHslString(hslVal);
             let rgbStr = getRgbString(currentRgb);
-            hueSelector.setAttribute("cx", coord.x);
+            let satSelCy = hslVal[1] * saturationSliderHeight;
+            let lumSelCy = hslVal[2] * luminanceSliderHeight;
+            let hueSelCx = hslVal[0] * hueSliderWidth + hueSliderX;
+
+            saturationSelector.setAttribute("cy", satSelCy);
+            luminanceSelector.setAttribute("cy", lumSelCy);
+            hueSelector.setAttribute("cx", hueSelCx);
+
             mainViewer.setAttribute("fill", rgbStr);
             rgbLabel.textContent = rgbStr;
-            let hslStr = getHslString(currentHsl);
             hslLabel.textContent = hslStr;
         }
 
