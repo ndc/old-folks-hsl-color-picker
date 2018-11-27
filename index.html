@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <svg id="cp" viewBox="0 0 380 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <svg id="cp" viewBox="0 0 1700 1000" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <linearGradient id="luminanceGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="black" />
@@ -384,23 +384,23 @@
             </linearGradient>
         </defs>
 
-        <rect x="0" y="0" width="10" height="100" fill="url(#saturationGradient)"
+        <rect x="0" y="0" width="90" height="1000" fill="url(#saturationGradient)"
             onclick="ChangeSaturation(evt)" id="saturationSlider" />
-        <circle cx="5" cy="100" r="2.5" fill="none" stroke="green" id="saturationSelector" />
+        <circle cx="45" cy="1000" r="20" fill="none" stroke="green" id="saturationSelector" />
 
-        <rect x="370" y="0" width="10" height="100" fill="url(#luminanceGradient)"
+        <rect x="1610" y="0" width="90" height="1000" fill="url(#luminanceGradient)"
             onclick="ChangeLuminance(evt)" id="luminanceSlider" />
-        <circle cx="375" cy="50" r="2.5" fill="none" stroke="green" id="luminanceSelector" />
+        <circle cx="1655" cy="500" r="20" fill="none" stroke="green" id="luminanceSelector" />
 
-        <rect x="10" y="67" width="360" height="33" fill="url(#hueGradient)"
+        <rect x="90" y="667" width="1520" height="333" fill="url(#hueGradient)"
             onclick="ChangeHue(evt)" id="hueSlider" />
-        <circle cx="130" cy="84" r="2.5" fill="none" stroke="black" id="hueSelector" />
+        <circle cx="500" cy="834" r="20" fill="none" stroke="black" id="hueSelector" />
 
-        <rect x="10" y="0" width="360" height="67" fill="rgb(0,255,0)" id="mainViewer" />
-        <text x="10" y="8" class="label" id="rgbLabel">rgb(0,255,0)</text>
-        <text x="10" y="16" class="label" id="hslLabel">120 100% 50%</text>
+        <rect x="90" y="0" width="1520" height="667" fill="rgb(0,255,0)" id="mainViewer" />
+        <text x="90" y="50" class="label" id="rgbLabel">rgb(0,255,0)</text>
+        <text x="90" y="100" class="label" id="hslLabel">120 100% 50%</text>
         <a href="http://www.endycahyono.com/article/my-attempt-at-creating-a-better-color-picker">
-            <text x="370" y="65" text-anchor="end" class="label">Explanation</text>
+            <text x="1610" y="650" text-anchor="end" class="label">Explanation</text>
         </a>
     </svg>
     <style>
@@ -418,7 +418,7 @@
         }
 
         .label {
-            font-size: 8px;
+            font-size: 45px;
             font-family: Arial, Helvetica, sans-serif;
             fill: black;
         }
@@ -446,7 +446,7 @@
         let rgbLabel = document.getElementById("rgbLabel");
         let hslLabel = document.getElementById("hslLabel");
 
-        let currentHsl = [0.36, 1.0, 0.5];
+        let currentHsl = [0.33333333, 1.0, 0.5];
 
         updateMainViewer(currentHsl);
 
