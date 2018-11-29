@@ -434,24 +434,24 @@
         let svgPoint = svgCanvas.createSVGPoint();
 
         let saturationSlider = document.getElementById("saturationSlider");
-        let saturationSliderHeight = saturationSlider.getBBox().height;
         saturationSlider.addEventListener("click", ChangeSaturation);
+        let saturationSliderHeight = saturationSlider.getBBox().height;
         let saturationSelector = document.getElementById("saturationSelector");
         let saturationFromColor = document.getElementById("saturationFromColor");
         let saturationToColor = document.getElementById("saturationToColor");
 
         let luminanceSlider = document.getElementById("luminanceSlider");
-        let luminanceSliderHeight = luminanceSlider.getBBox().height;
         luminanceSlider.addEventListener("click", ChangeLuminance);
+        let luminanceSliderHeight = luminanceSlider.getBBox().height;
         let luminanceSelector = document.getElementById("luminanceSelector");
         let luminanceLowColor = document.getElementById("luminanceLowColor");
         let luminanceMidColor = document.getElementById("luminanceMidColor");
         let luminanceHighColor = document.getElementById("luminanceHighColor");
 
         let hueSlider = document.getElementById("hueSlider");
+        hueSlider.addEventListener("click", ChangeHue);
         let hueSliderX = hueSlider.getBBox().x;
         let hueSliderWidth = hueSlider.getBBox().width;
-        hueSlider.addEventListener("click", ChangeHue);
         let hueSelector = document.getElementById("hueSelector");
 
         let mainViewer = document.getElementById("mainViewer");
