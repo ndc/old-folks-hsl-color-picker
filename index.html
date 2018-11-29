@@ -398,8 +398,8 @@
         <circle cx="500" cy="834" r="20" fill="none" stroke="black" id="hueSelector" />
 
         <rect x="90" y="0" width="1520" height="667" fill="rgb(0,255,0)" id="mainViewer" />
-        <text x="90" y="50" class="label" id="rgbLabel">rgb(0,255,0)</text>
-        <text x="90" y="100" class="label" id="hslLabel">120 100% 50%</text>
+        <text x="90" y="55" class="label" id="rgbLabel">rgb(0,255,0)</text>
+        <text x="90" y="110" class="label" id="hslLabel">120 100% 50%</text>
         <a href="http://www.endycahyono.com/article/my-attempt-at-creating-a-better-color-picker">
             <text x="1610" y="650" text-anchor="end" class="label">Explanation</text>
         </a>
@@ -424,7 +424,6 @@
         .label {
             font-size: 45px;
             font-family: Arial, Helvetica, sans-serif;
-            fill: black;
         }
     </style>
     <script>
@@ -511,6 +510,14 @@
             mainViewer.setAttribute("fill", rgbStr);
             rgbLabel.textContent = rgbStr;
             hslLabel.textContent = hslStr;
+
+            if (hslVal[2] < 0.33) {
+                rgbLabel.setAttribute("fill", "white");
+                hslLabel.setAttribute("fill", "white");
+            } else {
+                rgbLabel.setAttribute("fill", "black");
+                hslLabel.setAttribute("fill", "black");
+            }
         }
 
         function getSvgCoord(clickEvent) {
