@@ -13,7 +13,7 @@ jobs:
           # Source before directory from the origin directory
           #source-before-directory: # optional
           # Source directory from the origin directory
-          source-directory: 'src'
+          source-directory: 'src/'
           # Name of the destination username/organization
           destination-github-username: 'ndc'
           # Destination repository
